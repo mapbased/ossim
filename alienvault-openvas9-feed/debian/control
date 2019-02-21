@@ -1,0 +1,16 @@
+Source: alienvault-openvas9-feed
+Section: net
+Priority: extra
+Maintainer: AlienVault package developers <debian-devel@alienvault.com>
+Build-Depends: curl, ca-certificates, debhelper (>= 7)
+Standards-Version: 3.7.3
+Homepage: http://www.openvas.org/
+
+Package: alienvault-openvas9-feed
+Architecture: all
+Pre-Depends: alienvault-openvas (>= 5.6.2), ossim-utils, monit, sqlite3
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: ossim-mysql, alienvault-openvas-feed, alienvault-openvas8-feed
+Conflicts: alienvault-openvas-feed, alienvault-openvas8-feed
+Description: AlienVault OpenVAS feed
+ OpenVAS feed updated from http://www.openvas.org/

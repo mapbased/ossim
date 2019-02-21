@@ -1,0 +1,4 @@
+version=4
+opts="pagemangle=s%<a href=\"(\d+[\d+.]+)/\"%<a href=\"$1/openvas8-$1.tar.gz\"%g" \
+https://jenkins-ci:etgfXaAuwz%5BBdV%3Dv39id@alienvault.jfrog.io/alienvault/labs-releases-maven-local/com/alienvault/openvas8/openvas8/ .*openvas8-(\d+.\d+.\d+).tar.gz
+

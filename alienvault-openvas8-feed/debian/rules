@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog --show-field=Source))
+RELEASE = $(shell curl -H "X-JFrog-Art-Api: AKCp5bBXeUgZK5NAMikKPUKo8MsjSschXJsScEoBVfkTRoYJDpLbAbw4eUH7FxWgnfagHfvoJ" https://alienvault.jfrog.io/alienvault/labs-releases-maven-local/com/alienvault/openvas8/openvas8/maven-metadata.xml | grep release | awk -F'>' '{print$$2}' | awk -F'<' '{print$$1}')
+
+.PHONY: build
+## http://wiki.debian.org/onlyjob/get-orig-source
+override_dh_prep:
+	@echo "# Downloading..."
+	#uscan --noconf --verbose --rename --destdir=$(CURDIR) --check-dirname-level=0 --force-download
+	#wget doesn't support secure-protocol TLSv1_2 in wheezy
+	curl -H "X-JFrog-Art-Api: AKCp5bBXeUgZK5NAMikKPUKo8MsjSschXJsScEoBVfkTRoYJDpLbAbw4eUH7FxWgnfagHfvoJ" https://alienvault.jfrog.io/alienvault/labs-releases-maven-local/com/alienvault/openvas8/openvas8/$(RELEASE)/openvas8-$(RELEASE).tar.gz -o openvas8.tar.gz
+	tar xzfv openvas8.tar.gz
+	mv openvas8/* .
+	rm -rfv openvas8 openvas8.tar.gz
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
